@@ -143,7 +143,7 @@ function ResizeCanvas(theme) {
   } else if (currentPage == 2) {
     pageHeight = floor(window.innerWidth * 4);
   } else {
-    pageHeight = floor(window.innerWidth * 1.15);
+    pageHeight = floor(window.innerHeight * 1.15);
   }
   resizeCanvas(floor(window.innerWidth), pageHeight);
   Palette();
@@ -166,7 +166,7 @@ function Palette() {
       backgroundBottom: color(20, 235),
       backgroundCenter: color(0, 160),
       header: color(18),
-            footer: color(15),
+      footer: color(15),
       buttonBg: color(0, 0),
       buttonBgh: color(40, 180),
       buttonTxt: color(225),

@@ -25,7 +25,7 @@ function setup() {
   ResizeCanvas();
 }
 function draw() {
-  drawbg();
+  //drawbg();
   if (window.innerWidth != Canvas.width) {
     ResizeCanvas();
   }

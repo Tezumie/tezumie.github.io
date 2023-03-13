@@ -9,7 +9,7 @@ let headerHeight,
 let p, palette;
 let theme = 0;
 let PageTitles = ["Home", "Series", "About", "Resources"];
-let currentPage = 0;
+let currentPage = 1;
 let currentSection = 0;
 let pageBodyDiv;
 let allItemsDiv;
@@ -19,7 +19,7 @@ function setup() {
   document.body.style.overflowX = "hidden";
   headerHeight = 60;
   footerHeight = window.innerHeight * 0.1;
-  borderWidth = width / 78;
+  borderWidth = width / 7;
   bodyWidth = width - borderWidth * 2;
   bodyContentWidth = width - borderWidth * 2 - p.bodypadding * 2;
   bodyHeight = height - headerHeight - footerHeight;
@@ -60,7 +60,7 @@ function drawElements() {
     buttonDiv.id("AllItems");
     buttonDiv.id("buttonContainer");
     pageBodyDiv.child(buttonDiv);
-    gridImages(buttonDiv, myImages, myProjects, imgTxt, 2);
+    gridImages(buttonDiv, myImages, myProjects, imgTxt, 3);
 
     allItemsDiv.child(footer());
     pageBodyDiv.style("height", "auto");
@@ -167,7 +167,7 @@ function gridImages(buttonDiv, imgs, mylinks, mytext, cols) {
   buttonDiv.style("padding", "20px 20px");
   buttonDiv.style("aspect-ratio", "1/1");
 
-  for (let i = 0; i < 12; i++) {
+  for (let i = 0; i < imgs.length; i++) {
     let buttons = createButton("");
     buttons.id("imgButtons");
     buttons.style("height", "auto");
@@ -175,18 +175,25 @@ function gridImages(buttonDiv, imgs, mylinks, mytext, cols) {
     buttons.style("border-radius", "5px");
     buttons.style("padding", "15px");
     buttons.style("text-align", "center");
-    buttons.style("aspect-ratio", "1/1");
+    buttons.style("aspect-ratio", "1/1.15");
     buttons.style("background-image", "url(" + imgs[i] + ")");
     buttons.style("background-size", "contain");
-    buttons.style("background-position", "center");
+    buttons.style("background-size", "auto 80%");
+    buttons.style("background-position", "center top 15%");
+    buttons.style("background-padding", "15px");
     buttons.style("background-repeat", "no-repeat");
+    buttons.style("border", "1px solid black");
+    buttons.style("border-color", p.imgButtonOutline);
+
     buttonDiv.child(buttons);
     let textDiv = createDiv(mytext[i]);
     textDiv.id("imgText");
     textDiv.style("font-family", p.fontFamily);
     textDiv.style("text-align", "center");
+    textDiv.style("top", buttons.elt.clientHeight / 2.5 + "px");
     textDiv.style("max-width", buttons.elt.clientWidth - 30 + "px");
-    textDiv.style("padding", "4px");
+    textDiv.style("padding", "0px");
+
     textDiv.style("margin-right", "-50px");
     textDiv.style("white-space", "nowrap");
     textDiv.style("text-overflow", "ellipsis");
@@ -415,24 +422,25 @@ function styleElement(myElement, page) {
   if (myElement.elt.id === "imgButtons") {
     page.style("font-family", p.fontFamily);
     page.style("letter-spacing", "1px");
-    page.style("font-size", "0vw");
+    page.style("font-size", "1.6vw");
     page.style("color", "white");
-    page.style(
-      "text-shadow",
-      "1px 1px 0px #000, -1px -1px 0px #000, 1px -1px 0px #000, -1px 1px 0px #000"
-    );
+    myElement.style("transition", "transform 0.1s ease");
+    // page.style(
+    //   "text-shadow",
+    //   "1px 1px 0px #000, -1px -1px 0px #000, 1px -1px 0px #000, -1px 1px 0px #000"
+    // );
     myElement.elt.style.backgroundColor = p.pageButtons;
     myElement.elt.style.color = p.pageButtonTxt;
     myElement.elt.addEventListener("mouseover", () => {
-      page.style("font-size", "2.0vw");
+      //page.style("font-size", "1.6vw");
       // myElement.elt.style.backgroundColor = "rgb(0,0,0,0.25)";
       myElement.elt.style.color = p.pageButtonHoverTxt;
       myElement.style("cursor", "pointer");
       myElement.style("transform", "scale(1.01)");
-      myElement.style("filter", "brightness(92%)");
+      myElement.style("filter", "brightness(105%)");
     });
     myElement.elt.addEventListener("mouseout", () => {
-      page.style("font-size", "0vw");
+      // page.style("font-size", "1.6vw");
       myElement.elt.style.backgroundColor = p.pageButtons;
       myElement.elt.style.color = p.pageButtonTxt;
       myElement.style("cursor", "default");
@@ -514,21 +522,27 @@ function Palette() {
       pageButtonTxt: color(225),
       pageButtonHover: color(40, 180),
       pageButtonHoverTxt: color(225),
-      buttonTextSize: 16,
+      buttonTextSize: 17,
+      imgButtonOutline: color(200, 30),
     },
     {
       Theme: "Light",
       fontFamily: "Tahoma, Arial, sans-serif",
-      backGround: color(255),
-      bodypadding: 5,
-      pageBody: color(200),
-      textBox: color(255, 0, 0),
-      headerColor: color(225),
-      footerColor: color(225),
-      pageButtons: color(0),
-      pageButtonTxt: color(255),
-      pageButtonHover: color(255),
-      pageButtonHoverTxt: color(0),
+      backGround: color(15),
+      bodypadding: 1,
+      pageBody: color(16),
+      textBox: color(13),
+      textColor: color(225),
+      textSize: 16,
+      linkColor: color(0, 150, 255),
+      headerColor: color(18),
+      footerColor: color(18),
+      pageButtons: color(0, 0),
+      pageButtonTxt: color(225),
+      pageButtonHover: color(40, 180),
+      pageButtonHoverTxt: color(225),
+      buttonTextSize: 17,
+      imgButtonOutline: color(200, 30),
     },
   ];
   p = palette[theme];

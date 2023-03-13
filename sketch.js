@@ -9,7 +9,7 @@ let headerHeight,
 let p, palette;
 let theme = 0;
 let PageTitles = ["Home", "Series", "About", "Resources"];
-let currentPage = 1;
+let currentPage = 0;
 let currentSection = 0;
 let pageBodyDiv;
 let allItemsDiv;

@@ -40,6 +40,34 @@ let imgTxt = [
   "Tezumie 1-1",
   "Tezumie",
 ];
+let imgTxtEditions = [
+  "coming soon",
+  "512 editions",
+  "300 editions",
+  "256 editions",
+  "210 editions",
+  "256 editions",
+  "256 editions",
+  "512 editions",
+  "226 editions",
+  "256 editions",
+  "1000 editions",
+  "1497 editions",
+];
+let imgTxtMarket = [
+  "TBA",
+  "256 Art",
+  "fx(hash)",
+  "fx(hash)",
+  "fx(hash)",
+  "fx(hash)",
+  "fx(hash)",
+  "fx(hash)",
+  "fx(hash)",
+  "fx(hash)",
+  "fx(hash)",
+  "fx(hash)",
+];
 let myImagesTezumie = [
   "tezumieimgs/ogTezumie.jpg",
   "tezumieimgs/Sprite.png",

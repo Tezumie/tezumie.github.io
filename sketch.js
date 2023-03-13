@@ -60,7 +60,7 @@ function drawElements() {
     buttonDiv.id("AllItems");
     buttonDiv.id("buttonContainer");
     pageBodyDiv.child(buttonDiv);
-    gridImages(buttonDiv, myImages, myProjects, imgTxt, 3);
+    gridImages(buttonDiv, myImages, myProjects, imgTxt, 2);
 
     allItemsDiv.child(footer());
     pageBodyDiv.style("height", "auto");

@@ -60,7 +60,7 @@ function drawElements() {
     buttonDiv.id("AllItems");
     buttonDiv.id("buttonContainer");
     pageBodyDiv.child(buttonDiv);
-    gridImages(buttonDiv, myImages, myProjects, imgTxt, 2);
+    gridImages(buttonDiv, myImages, myProjects, imgTxt, 2, true);
 
     allItemsDiv.child(footer());
     pageBodyDiv.style("height", "auto");
@@ -158,14 +158,14 @@ function addBannerImage(allItemsDiv, bannerHeight) {
   allItemsDiv.child(bannerDiv);
 }
 
-function gridImages(buttonDiv, imgs, mylinks, mytext, cols) {
+function gridImages(buttonDiv, imgs, mylinks, mytext, cols, editions) {
   buttonDiv.style("display", "grid");
   buttonDiv.style("grid-template-columns", "repeat(" + cols + ", 1fr)");
   buttonDiv.style("grid-gap", "20px");
   buttonDiv.style("position", "relative");
   buttonDiv.style("margin-top", "20px");
   buttonDiv.style("padding", "20px 20px");
-  buttonDiv.style("aspect-ratio", "1/1");
+  buttonDiv.style("aspect-ratio", "1/1.25");
 
   for (let i = 0; i < imgs.length; i++) {
     let buttons = createButton("");
@@ -175,32 +175,75 @@ function gridImages(buttonDiv, imgs, mylinks, mytext, cols) {
     buttons.style("border-radius", "5px");
     buttons.style("padding", "15px");
     buttons.style("text-align", "center");
-    buttons.style("aspect-ratio", "1/1.15");
+    buttons.style("aspect-ratio", "1/1.25");
     buttons.style("background-image", "url(" + imgs[i] + ")");
     buttons.style("background-size", "contain");
-    buttons.style("background-size", "auto 80%");
+    buttons.style("background-size", "auto 70%");
     buttons.style("background-position", "center top 15%");
     buttons.style("background-padding", "15px");
     buttons.style("background-repeat", "no-repeat");
     buttons.style("border", "1px solid black");
     buttons.style("border-color", p.imgButtonOutline);
-
     buttonDiv.child(buttons);
+    let imgHeight = buttons.offsetHeight * 0.75;
+    let hr = createDiv();
+    hr.id("imgText");
+    hr.style("position", "relative");
+    hr.style("top", buttons.elt.clientHeight / 2.9 + "px");
+    hr.style("width", "100%" + 15 + "px");
+    hr.style("border-bottom", "1px solid black");
+    hr.style("border-color", p.imgButtonOutline);
+    hr.style("margin-left", "-15px");
+    hr.style("margin-right", "-15px");
+    buttons.child(hr);
     let textDiv = createDiv(mytext[i]);
     textDiv.id("imgText");
     textDiv.style("font-family", p.fontFamily);
-    textDiv.style("text-align", "center");
-    textDiv.style("top", buttons.elt.clientHeight / 2.5 + "px");
+    textDiv.style("text-align", "left");
+    textDiv.style("top", buttons.elt.clientHeight / 2.7 + "px");
     textDiv.style("max-width", buttons.elt.clientWidth - 30 + "px");
     textDiv.style("padding", "0px");
-
     textDiv.style("margin-right", "-50px");
     textDiv.style("white-space", "nowrap");
     textDiv.style("text-overflow", "ellipsis");
     textDiv.style("overflow", "hidden");
     textDiv.style("position", "relative");
+    textDiv.style("font-size", "1.6vw");
     buttons.child(textDiv);
     styleElement(buttons, textDiv);
+    if (editions) {
+      let textDiv2 = createDiv(imgTxtEditions[i]);
+      textDiv2.id("imgText");
+      textDiv2.style("font-family", p.fontFamily);
+      textDiv2.style("text-align", "left");
+      textDiv2.style("top", buttons.elt.clientHeight / 2.5 + "px");
+      textDiv2.style("max-width", buttons.elt.clientWidth - 30 + "px");
+      textDiv2.style("padding", "0px");
+      textDiv2.style("margin-right", "-50px");
+      textDiv2.style("white-space", "nowrap");
+      textDiv2.style("text-overflow", "ellipsis");
+      textDiv2.style("overflow", "hidden");
+      textDiv2.style("position", "relative");
+      textDiv2.style("font-size", "1.1vw");
+      buttons.child(textDiv2);
+      styleElement(buttons, textDiv2);
+
+      let textDiv3 = createDiv(imgTxtMarket[i]);
+      textDiv3.id("imgText");
+      textDiv3.style("font-family", p.fontFamily);
+      textDiv3.style("text-align", "left");
+      textDiv3.style("top", buttons.elt.clientHeight / 2.45 + "px");
+      textDiv3.style("max-width", buttons.elt.clientWidth - 30 + "px");
+      textDiv3.style("padding", "0px");
+      textDiv3.style("margin-right", "-50px");
+      textDiv3.style("white-space", "nowrap");
+      textDiv3.style("text-overflow", "ellipsis");
+      textDiv3.style("overflow", "hidden");
+      textDiv3.style("position", "relative");
+      textDiv3.style("font-size", "1.1vw");
+      buttons.child(textDiv3);
+      styleElement(buttons, textDiv3);
+    }
     buttons.mouseClicked(() => {
       if (i + 1 == 1) {
         currentSection = i + 1;
@@ -422,7 +465,7 @@ function styleElement(myElement, page) {
   if (myElement.elt.id === "imgButtons") {
     page.style("font-family", p.fontFamily);
     page.style("letter-spacing", "1px");
-    page.style("font-size", "1.6vw");
+    // page.style("font-size", "1.6vw");
     page.style("color", "white");
     myElement.style("transition", "transform 0.1s ease");
     // page.style(

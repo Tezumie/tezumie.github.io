@@ -17,13 +17,7 @@ function setup() {
   Palette();
   createCanvas(window.innerWidth, window.innerHeight * 1.1);
   document.body.style.overflowX = "hidden";
-  headerHeight = 60;
-  footerHeight = window.innerHeight * 0.1;
-  borderWidth = width / 7;
-  bodyWidth = width - borderWidth * 2;
-  bodyContentWidth = width - borderWidth * 2 - p.bodypadding * 2;
-  bodyHeight = height - headerHeight - footerHeight;
-  bodyContentHeight = height - headerHeight - footerHeight - p.bodypadding * 2;
+  setMeasurements();
   drawElements();
   windowResized();
 }
@@ -380,6 +374,10 @@ function header() {
   buttonDiv.id("buttonContainer");
   headerDiv.child(buttonDiv);
   drawPageButtons(buttonDiv);
+  let themeDiv = createDiv("");
+  themeDiv.id("buttonContainer");
+  headerDiv.child(themeDiv);
+  drawThemeButton(themeDiv);
 }
 function footer() {
   let footerDiv = createDiv("");
@@ -391,12 +389,39 @@ function footer() {
   styleElement(footerDiv);
   return footerDiv;
 }
+function drawThemeButton(buttonDiv) {
+  buttonDiv.style("display", "flex");
+  buttonDiv.style("justify-content", "flex-start");
+  buttonDiv.style("right", borderWidth + "px");
+  buttonDiv.style("position", "absolute");
+  buttonDiv.style("margin-top", "23px");
+  let buttons = createButton("☼");
+  buttons.id("pageButtons");
+  buttons.style("height", "25px");
+  buttons.style("margin", "0 5px");
+  buttons.style("border", "none");
+  buttons.style("border-radius", "5px");
+  buttons.style("padding", "0px 8px");
+  buttons.style("padding-bottom", "2px");
+  buttons.style("text-align", "center");
+  styleElement(buttons);
+  buttons.mouseClicked(() => {
+    if (theme == 0) {
+      theme = 1;
+    } else {
+      theme = 0;
+    }
+    Palette();
+    windowResized();
+  });
+  buttonDiv.child(buttons);
+}
 function drawPageButtons(buttonDiv) {
   buttonDiv.style("display", "flex");
   buttonDiv.style("justify-content", "flex-start");
   buttonDiv.style("left", borderWidth + "px");
   buttonDiv.style("position", "absolute");
-  buttonDiv.style("margin-top", "18px");
+  buttonDiv.style("margin-top", "23px");
   for (let i = 0; i < PageTitles.length; i++) {
     let buttons = createButton(PageTitles[i]);
     buttons.id("pageButtons");
@@ -432,6 +457,7 @@ function styleElement(myElement, page) {
   }
   if (myElement.elt.id === "header") {
     myElement.style("background-color", p.headerColor);
+    myElement.style("box-shadow", "0px 2px 5px rgba(0, 0, 0, 0.06)");
   }
   if (myElement.elt.id === "footer") {
     myElement.style("background-color", p.footerColor);
@@ -465,30 +491,23 @@ function styleElement(myElement, page) {
   if (myElement.elt.id === "imgButtons") {
     page.style("font-family", p.fontFamily);
     page.style("letter-spacing", "1px");
-    // page.style("font-size", "1.6vw");
-    page.style("color", "white");
+    page.style("color", p.textColor);
     myElement.style("transition", "transform 0.1s ease");
-    // page.style(
-    //   "text-shadow",
-    //   "1px 1px 0px #000, -1px -1px 0px #000, 1px -1px 0px #000, -1px 1px 0px #000"
-    // );
-    myElement.elt.style.backgroundColor = p.pageButtons;
-    myElement.elt.style.color = p.pageButtonTxt;
+    myElement.elt.style.backgroundColor = p.imgButton;
+    myElement.elt.style.color = p.textColor;
     myElement.elt.addEventListener("mouseover", () => {
-      //page.style("font-size", "1.6vw");
-      // myElement.elt.style.backgroundColor = "rgb(0,0,0,0.25)";
+      myElement.elt.style.backgroundColor = p.imgButtonHover;
       myElement.elt.style.color = p.pageButtonHoverTxt;
       myElement.style("cursor", "pointer");
       myElement.style("transform", "scale(1.01)");
-      myElement.style("filter", "brightness(105%)");
+      //myElement.style("filter", "brightness(105%)");
     });
     myElement.elt.addEventListener("mouseout", () => {
-      // page.style("font-size", "1.6vw");
-      myElement.elt.style.backgroundColor = p.pageButtons;
+      myElement.elt.style.backgroundColor = p.imgButton;
       myElement.elt.style.color = p.pageButtonTxt;
       myElement.style("cursor", "default");
       myElement.style("transform", "scale(1.0)");
-      myElement.style("filter", "brightness(100%)");
+      // myElement.style("filter", "brightness(100%)");
     });
   }
 }
@@ -537,15 +556,18 @@ function windowResized() {
   }
   garbageCan = [];
   resizeCanvas(window.innerWidth, window.innerHeight * 1.1);
-  headerHeight = 60;
+  setMeasurements();
+  drawElements();
+  window.scrollTo(0, currentScroll);
+}
+function setMeasurements() {
+  headerHeight = 70;
   footerHeight = window.innerHeight * 0.1;
   borderWidth = width / 7;
   bodyWidth = width - borderWidth * 2;
   bodyContentWidth = width - borderWidth * 2 - p.bodypadding * 2;
   bodyHeight = height - headerHeight - footerHeight;
   bodyContentHeight = height - headerHeight - footerHeight - p.bodypadding * 2;
-  drawElements();
-  window.scrollTo(0, currentScroll);
 }
 function Palette() {
   palette = [
@@ -566,26 +588,30 @@ function Palette() {
       pageButtonHover: color(40, 180),
       pageButtonHoverTxt: color(225),
       buttonTextSize: 17,
-      imgButtonOutline: color(200, 30),
+      imgButtonOutline: color(200, 50),
+      imgButton: color(16),
+      imgButtonHover: color(12),
     },
     {
       Theme: "Light",
       fontFamily: "Tahoma, Arial, sans-serif",
-      backGround: color(15),
+      backGround: color(255),
       bodypadding: 1,
-      pageBody: color(16),
-      textBox: color(13),
-      textColor: color(225),
+      pageBody: color(255),
+      textBox: color(250),
+      textColor: color(10),
       textSize: 16,
-      linkColor: color(0, 150, 255),
-      headerColor: color(18),
-      footerColor: color(18),
+      linkColor: color(0, 120, 255),
+      headerColor: color(252),
+      footerColor: color(252),
       pageButtons: color(0, 0),
-      pageButtonTxt: color(225),
-      pageButtonHover: color(40, 180),
-      pageButtonHoverTxt: color(225),
+      pageButtonTxt: color(10),
+      pageButtonHover: color(225, 180),
+      pageButtonHoverTxt: color(10),
       buttonTextSize: 17,
-      imgButtonOutline: color(200, 30),
+      imgButtonOutline: color(90, 50),
+      imgButton: color(255),
+      imgButtonHover: color(247),
     },
   ];
   p = palette[theme];

@@ -41,7 +41,7 @@ let imgTxt = [
   "Tezumie",
 ];
 let imgTxtEditions = [
-  "coming soon",
+  "300 editions",
   "512 editions",
   "300 editions",
   "256 editions",
@@ -55,7 +55,7 @@ let imgTxtEditions = [
   "1497 editions",
 ];
 let imgTxtMarket = [
-  "TBA",
+  "Art Blocks",
   "256 Art",
   "fx(hash)",
   "fx(hash)",
